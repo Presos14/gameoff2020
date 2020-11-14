@@ -20,31 +20,31 @@ public class Rocket : MonoBehaviour
         rigidBody = GetComponent<Rigidbody2D>();
     }
 
+    void setParticleEmission(ParticleSystem.EmissionModule emission, bool enabled) {
+        emission.enabled = enabled;
+    }
+
     // Update is called once per frame
     void Update()
     {
         if (Input.GetKey(KeyCode.Space)) {
             thrust.relativeForce = Vector2.up * mainThrustForce;
-            ParticleSystem.EmissionModule em = mainThrustEffect.emission;
-            em.enabled = true;
+            setParticleEmission(mainThrustEffect.emission, true);
         }
         if (Input.GetKeyUp(KeyCode.Space)) {
             thrust.relativeForce = Vector2.zero;
             if (mainThrustEffect.isEmitting) {
-                ParticleSystem.EmissionModule em = mainThrustEffect.emission;
-                em.enabled = false;
+                setParticleEmission(mainThrustEffect.emission, false);
             }
         }
         if (Input.GetKeyUp(KeyCode.RightArrow)) {
             if (leftThrustEffect.isEmitting) {
-                ParticleSystem.EmissionModule em = leftThrustEffect.emission;
-                em.enabled = false;
+                setParticleEmission(leftThrustEffect.emission, false);
             }
         }
         if (Input.GetKeyUp(KeyCode.LeftArrow)) {
             if (rightThrustEffect.isEmitting) {
-                ParticleSystem.EmissionModule em = rightThrustEffect.emission;
-                em.enabled = false;
+                setParticleEmission(rightThrustEffect.emission, false);
             }
         }  
     }
@@ -53,14 +53,12 @@ public class Rocket : MonoBehaviour
         if (Input.GetKey(KeyCode.RightArrow)) {
             Vector2 worldForcePosition = transform.TransformPoint(new Vector2(-0.5f,0f));
             rigidBody.AddForceAtPosition(transform.up * sideThrustForce, worldForcePosition);
-            ParticleSystem.EmissionModule em = leftThrustEffect.emission;
-            em.enabled = true;
+            setParticleEmission(leftThrustEffect.emission, true);
         }
         if (Input.GetKey(KeyCode.LeftArrow)) {
             Vector2 worldForcePosition = transform.TransformPoint(new Vector2(0.5f,0f));
             rigidBody.AddForceAtPosition(transform.up * sideThrustForce, worldForcePosition);
-            ParticleSystem.EmissionModule em = rightThrustEffect.emission;
-            em.enabled = true;
+            setParticleEmission(rightThrustEffect.emission, true);
         }
     }
 }
