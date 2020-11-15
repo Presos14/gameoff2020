@@ -2,13 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Cinemachine;
 
 public class WorldController : MonoBehaviour
 {
     public static WorldController instance { get; private set; }
 
-    public GameObject worldCamera;
-    public GameObject rocketCamera;
+    public CinemachineVirtualCamera worldCamera;
+    public CinemachineVirtualCamera rocketCamera;
+    public CinemachineVirtualCamera centerCamera;
 
     public enum WorldState {
         Running,
@@ -25,7 +27,7 @@ public class WorldController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        worldCamera.SetActive(false);
+        worldCamera.gameObject.SetActive(false);
     }
 
     // Update is called once per frame
@@ -36,5 +38,11 @@ public class WorldController : MonoBehaviour
                 SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
             }
         }
+    }
+
+    public void gameOver(string message) {
+        UIController.instance.showGameOverText(message);
+        state = WorldState.GameOver;
+        centerCamera.gameObject.SetActive(true);
     }
 }

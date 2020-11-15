@@ -1,18 +1,19 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Cinemachine;
 
 public class Parallax : MonoBehaviour
 {
-    private float lengthx, lengthy, xpos, ypos;
-    public GameObject cam;
+    private float lengthx, lengthy;
+    private Vector2 pos;
     public float parallaxEffect;
+
 
     // Start is called before the first frame update
     void Start()
     {
-        xpos = transform.position.x;
-        ypos = transform.position.y;
+        pos = transform.position;
         lengthx = GetComponent<SpriteRenderer>().bounds.size.x;
         lengthy = GetComponent<SpriteRenderer>().bounds.size.y;
     }
@@ -20,27 +21,22 @@ public class Parallax : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        float tempx = (cam.transform.position.x * (1 - parallaxEffect));
-        float tempy = (cam.transform.position.y * (1 - parallaxEffect));
-        float dist = (cam.transform.position.x * parallaxEffect);
-        float ydist = (cam.transform.position.y * parallaxEffect);
+        GameObject cam = ((CinemachineVirtualCamera) CinemachineCore.Instance.GetActiveBrain(0).ActiveVirtualCamera).gameObject;
 
-        transform.position = new Vector3(xpos + dist, ypos + ydist, transform.position.z);
-        if (tempx > xpos + lengthx)
-        {
-            xpos += lengthx;
+        Vector2 tempPos = cam.transform.position * (1 - parallaxEffect);
+        Vector2 dist = cam.transform.position * parallaxEffect;
+
+        transform.position = pos + dist;
+        if (tempPos.x > pos.x + lengthx) {
+            pos.x += lengthx;
+        } else if (tempPos.x < pos.x - lengthx) {
+            pos.x -= lengthx;
         }
-        else if (tempx < xpos - lengthx)
-        {
-            xpos -= lengthx;
-        }
-        if (tempy > ypos + lengthy)
-        {
-            ypos += lengthy;
-        }
-        else if (ypos < ypos - lengthy)
-        {
-            ypos -= lengthy;
+
+        if (tempPos.y > pos.y + lengthy) {
+            pos.y += lengthy;
+        } else if (tempPos.y < pos.y - lengthy) {
+            pos.y -= lengthy;
         }
     }
 }

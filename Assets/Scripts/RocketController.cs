@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Cinemachine;
 
 public class RocketController : MonoBehaviour
 {
@@ -87,8 +88,7 @@ public class RocketController : MonoBehaviour
 
         if (fuel < 0) {
             fuel = 0;
-            UIController.instance.gameOverText.gameObject.SetActive(true);
-            WorldController.instance.state = WorldController.WorldState.GameOver;
+            WorldController.instance.gameOver("Gone adrift... Press to retry!");
         }
     }
 }
