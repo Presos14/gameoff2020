@@ -14,7 +14,8 @@ public class WorldController : MonoBehaviour
 
     public enum WorldState {
         Running,
-        GameOver
+        GameOver,
+        LevelComplete
     }
 
     public WorldState state = WorldState.Running;
@@ -37,12 +38,23 @@ public class WorldController : MonoBehaviour
             if (Input.anyKeyDown) {
                 SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
             }
+        } else if (state == WorldState.LevelComplete) {
+            if (Input.anyKeyDown) {
+                Time.timeScale = 1f;
+                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            }
         }
     }
 
     public void gameOver(string message) {
-        UIController.instance.showGameOverText(message);
+        UIController.instance.showText(message);
         state = WorldState.GameOver;
         centerCamera.gameObject.SetActive(true);
+    }
+
+    public void levelComplete(string message) {
+        Time.timeScale = 0;
+        UIController.instance.showText(message);
+        state = WorldState.LevelComplete;
     }
 }
