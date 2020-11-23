@@ -14,14 +14,20 @@ public class RocketController : MonoBehaviour
     int mainThrustForce = 3;
     int sideThrustForce = 2;
 
-    float maxFuel = 250;
+    float maxFuel = 1000;
     float fuel;
+
+    public bool isGrounded;
+    public bool takingOff;
+    private RotateAroundPlanet groundPlanetRotateBehavior;
+    private ShakeBehavior shakeBehavior;
     
     // Start is called before the first frame update
     void Start()
     {
         thrust = GetComponent<ConstantForce2D>();
         rigidBody = GetComponent<Rigidbody2D>();
+        shakeBehavior = GetComponent<ShakeBehavior>();
 
         fuel = maxFuel;
     }
@@ -34,6 +40,11 @@ public class RocketController : MonoBehaviour
                 thrust.relativeForce = Vector2.up * mainThrustForce;
                 setParticleEmission(mainThrustEffect.emission, true);
                 decreaseFuel();
+                if (isGrounded) {
+                    // Stop planet rotation while rocket is taking off
+                    groundPlanetRotateBehavior.rotate = false;
+                }
+                shakeBehavior.GenerateImpulse(takingOff ? 1f : 0.4f);
             } else {
                 thrust.relativeForce = Vector2.zero;
                 if (mainThrustEffect.isEmitting) {
@@ -75,6 +86,31 @@ public class RocketController : MonoBehaviour
                 setParticleEmission(rightThrustEffect.emission, true);
                 decreaseFuel();
             }
+        }
+    }
+
+    void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("surface")) {
+            isGrounded = true;
+            takingOff = true;
+            groundPlanetRotateBehavior = collision.gameObject.GetComponent<RotateAroundPlanet>();
+            groundPlanetRotateBehavior.rotate = true;
+        }
+    }
+
+    void OnCollisionExit2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("surface")) {
+            isGrounded = false;
+        }
+    }
+
+    public void onTakeOffGravityFieldExit() {
+        if (groundPlanetRotateBehavior != null) {
+            groundPlanetRotateBehavior.rotate = true;
+            groundPlanetRotateBehavior = null;
+            takingOff = false;
         }
     }
 
