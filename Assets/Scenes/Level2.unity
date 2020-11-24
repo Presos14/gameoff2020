@@ -868,7 +868,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1383398894380654191, guid: cf2a01f56e3cb4a41b63d934d0b2062c, type: 3}
       propertyPath: gravity
-      value: 2
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 4345520725454095497, guid: cf2a01f56e3cb4a41b63d934d0b2062c, type: 3}
       propertyPath: m_Radius
@@ -1006,6 +1006,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gravity: 1
+  planetGravityCollider: {fileID: 0}
 --- !u!58 &1809147913
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -1313,7 +1314,7 @@ PrefabInstance:
       objectReference: {fileID: 700770751}
     - target: {fileID: 5450676379666140319, guid: 7516cb1b10cc74d5c8a7d904badfe6e9, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -28.735506
+      value: -28.735504
       objectReference: {fileID: 0}
     - target: {fileID: 5450676379666140319, guid: 7516cb1b10cc74d5c8a7d904badfe6e9, type: 3}
       propertyPath: m_LocalPosition.y
@@ -1321,11 +1322,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5450676379666140319, guid: 7516cb1b10cc74d5c8a7d904badfe6e9, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -15
+      value: -0.29139042
       objectReference: {fileID: 0}
     - target: {fileID: 5450676379862496924, guid: 7516cb1b10cc74d5c8a7d904badfe6e9, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.0000019073486
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5450676379862496924, guid: 7516cb1b10cc74d5c8a7d904badfe6e9, type: 3}
       propertyPath: m_LocalPosition.y
@@ -1333,7 +1334,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5450676379862496924, guid: 7516cb1b10cc74d5c8a7d904badfe6e9, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 24.70861
+      value: 9.999999
       objectReference: {fileID: 0}
     - target: {fileID: 5450676379862496927, guid: 7516cb1b10cc74d5c8a7d904badfe6e9, type: 3}
       propertyPath: m_Targets.Array.size

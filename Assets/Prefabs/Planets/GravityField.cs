@@ -5,9 +5,16 @@ using UnityEngine;
 public class GravityField : MonoBehaviour
 {
     public float gravity = 10;
+    CircleCollider2D planetGravityCollider;
+
+    float maxDistance;
     private List<Collider2D> colliders = new List<Collider2D>();
     public List<Collider2D> GetColliders () { return colliders; }
  
+    void Start() {
+        planetGravityCollider = GetComponent<CircleCollider2D>();
+        maxDistance = planetGravityCollider.radius;
+    }
     private void OnTriggerEnter2D(Collider2D other) {
         if (!colliders.Contains(other)) { colliders.Add(other); }
     }
@@ -26,8 +33,16 @@ public class GravityField : MonoBehaviour
     {
         if (other.attachedRigidbody)
         {
-            Vector2 dir = Vector3.Normalize(transform.position -other.transform.position);
-            other.attachedRigidbody.AddForce( dir * gravity);
+            Vector2 relativePosition = transform.position - other.transform.position;
+            float distance = Mathf.Clamp(relativePosition.magnitude, 0, maxDistance);
+    
+            //the force of gravity will reduce by the distance squared
+            //float gravityFactor = 1 - (Mathf.Sqrt(distance) / Mathf.Sqrt(maxDistance));
+            float gravityFactor = 1 - (distance / maxDistance);
+ 
+            Vector2 dir = Vector3.Normalize(relativePosition);
+            Debug.Log(dir * gravity * gravityFactor);
+            other.attachedRigidbody.AddForce( dir * gravity * gravityFactor);
         }
     }
 
