@@ -11,8 +11,8 @@ public class RocketController : MonoBehaviour
     ConstantForce2D thrust;
     Rigidbody2D rigidBody;
 
-    int mainThrustForce = 3;
-    int sideThrustForce = 2;
+    int mainThrustForce = 5;
+    int sideThrustForce = 1;
 
     float maxFuel = 1000;
     float fuel;
