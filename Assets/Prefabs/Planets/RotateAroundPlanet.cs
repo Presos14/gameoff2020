@@ -10,7 +10,7 @@ public class RotateAroundPlanet : MonoBehaviour
     public bool rotate = true;
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         if (rotate) {
             transform.RotateAround(planet.transform.position, Vector3.forward, speed * Time.deltaTime);
@@ -19,7 +19,7 @@ public class RotateAroundPlanet : MonoBehaviour
             if (gravityField != null) {
                 foreach (Collider2D collider in gravityField.getColliders()) {
                     RocketController rocket = collider.GetComponent<RocketController>();
-                    if (rocket != null && rocket.isGrounded) {
+                    if (rocket != null && rocket.getIsGrounded()) {
                         rocket.transform.RotateAround(planet.transform.position, Vector3.forward, speed * Time.deltaTime);
                     }
                 }

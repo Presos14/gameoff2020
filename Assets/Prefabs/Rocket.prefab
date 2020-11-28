@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 1964883524097222307}
   - component: {fileID: 1964883524097222304}
   - component: {fileID: 985486766}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Rocket
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -137,8 +137,7 @@ MonoBehaviour:
   mainThrustEffect: {fileID: 1964883524293107666}
   leftThrustEffect: {fileID: 3508561378078662108}
   rightThrustEffect: {fileID: 6168881094169692225}
-  isGrounded: 0
-  takingOff: 0
+  maxFuel: 1000
 --- !u!60 &1964883524097222304
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -489,6 +488,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Right Thrust Effect
       objectReference: {fileID: 0}
+    - target: {fileID: 2848495027622146031, guid: 382699da5d70d4f26896d932193258b7, type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 5681554316195757231, guid: 382699da5d70d4f26896d932193258b7, type: 3}
       propertyPath: ShapeModule.m_Rotation.y
       value: 30
@@ -564,6 +567,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Main Thrust Effect
       objectReference: {fileID: 0}
+    - target: {fileID: 8301740045042992502, guid: c2a9a926cabb84f738e7d15adf9007cd, type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c2a9a926cabb84f738e7d15adf9007cd, type: 3}
 --- !u!4 &1964883524293107668 stripped
@@ -630,6 +637,10 @@ PrefabInstance:
     - target: {fileID: 2848495027622146031, guid: 382699da5d70d4f26896d932193258b7, type: 3}
       propertyPath: m_Name
       value: Left Thrust Effect
+      objectReference: {fileID: 0}
+    - target: {fileID: 2848495027622146031, guid: 382699da5d70d4f26896d932193258b7, type: 3}
+      propertyPath: m_Layer
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 5681554316195757231, guid: 382699da5d70d4f26896d932193258b7, type: 3}
       propertyPath: EmissionModule.enabled

@@ -14,11 +14,11 @@ public class RocketController : MonoBehaviour
     int mainThrustForce = 5;
     int sideThrustForce = 1;
 
-    float maxFuel = 1000;
+    public float maxFuel = 1000;
     float fuel;
 
-    public bool isGrounded;
-    public bool takingOff;
+    bool isGrounded;
+    bool takingOff;
     private RotateAroundPlanet groundPlanetRotateBehavior;
     private ShakeBehavior shakeBehavior;
     
@@ -126,5 +126,13 @@ public class RocketController : MonoBehaviour
             fuel = 0;
             WorldController.instance.gameOver("Gone adrift... Press to retry!");
         }
+    }
+
+    public void hit() {
+        shakeBehavior.GenerateImpulse(2f);
+    }
+
+    public bool getIsGrounded() {
+        return isGrounded;
     }
 }
