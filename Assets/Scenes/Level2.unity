@@ -1010,6 +1010,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gravity: 5
+  linearDrag: 0.5
   orbit: 0
 --- !u!58 &1809147913
 CircleCollider2D:
@@ -1253,7 +1254,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1964883524097222306, guid: bf15d2c5caac74c06baf9aad8138e518, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1.69
+      value: 1.75
       objectReference: {fileID: 0}
     - target: {fileID: 1964883524097222306, guid: bf15d2c5caac74c06baf9aad8138e518, type: 3}
       propertyPath: m_LocalPosition.y
@@ -1338,7 +1339,7 @@ PrefabInstance:
       objectReference: {fileID: 700770751}
     - target: {fileID: 5450676379666140319, guid: 7516cb1b10cc74d5c8a7d904badfe6e9, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -28.783695
+      value: -28.752268
       objectReference: {fileID: 0}
     - target: {fileID: 5450676379666140319, guid: 7516cb1b10cc74d5c8a7d904badfe6e9, type: 3}
       propertyPath: m_LocalPosition.y
