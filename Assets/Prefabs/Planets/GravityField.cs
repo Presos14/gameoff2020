@@ -14,6 +14,7 @@ public class GravityField : MonoBehaviour
 
     public bool orbit;
     public bool decreaseWithDistance = true;
+    public bool inverseGravity = false;
  
     void Start() {
         planetGravityCollider = GetComponent<CircleCollider2D>();
@@ -48,10 +49,11 @@ public class GravityField : MonoBehaviour
     
             float gravityFactor = decreaseWithDistance ? (1 - (distance / maxDistance)) : 1;
  
-            Vector2 dir = relativePosition.normalized;
             // Apply some force towards the ground for gravity
-            collider.attachedRigidbody.AddForce(collider.attachedRigidbody.drag * dir * gravity * gravityFactor);
-            Debug.DrawLine(rb.position, rb.position + collider.attachedRigidbody.drag * dir * gravity * gravityFactor, Color.white);
+            Vector2 dir = relativePosition.normalized;
+            Vector2 force = (inverseGravity ? -1 : 1) * collider.attachedRigidbody.drag * dir * gravity * gravityFactor;
+            collider.attachedRigidbody.AddForce(force);
+            Debug.DrawLine(rb.position, rb.position + force, Color.white);
 
             var left = Vector2.SignedAngle(rb.velocity, relativePosition) > 0;
 
