@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class GravityField : MonoBehaviour
 {
-    public float gravity = 10;
-    public float linearDrag = 0.4f;
+    public float gravity;
+    public float linearDrag;
     CircleCollider2D planetGravityCollider;
 
     float maxDistance;
@@ -13,13 +13,13 @@ public class GravityField : MonoBehaviour
     public List<Collider2D> GetColliders () { return colliders; }
 
     public bool orbit;
+    public bool decreaseWithDistance = true;
  
     void Start() {
         planetGravityCollider = GetComponent<CircleCollider2D>();
         maxDistance = planetGravityCollider.radius;
     }
     private void OnTriggerEnter2D(Collider2D other) {
-        Debug.Log("Set drag! " + linearDrag);
         other.attachedRigidbody.drag = linearDrag;
         if (!colliders.Contains(other)) { colliders.Add(other); }
     }
@@ -38,11 +38,15 @@ public class GravityField : MonoBehaviour
         if (!orbit) return;
 
         foreach (Collider2D collider in colliders) {
+            if (collider.name == "GravityField") {
+                continue;
+            }
+
             Rigidbody2D rb = collider.GetComponent<Rigidbody2D>();
             Vector2 relativePosition = ((Vector2) transform.position) - rb.position;
             float distance = relativePosition.magnitude;
     
-            float gravityFactor = 1 - (distance / maxDistance);
+            float gravityFactor = decreaseWithDistance ? (1 - (distance / maxDistance)) : 1;
  
             Vector2 dir = relativePosition.normalized;
             // Apply some force towards the ground for gravity
@@ -57,6 +61,7 @@ public class GravityField : MonoBehaviour
 
             collider.attachedRigidbody.AddForce(side * gravity * gravityFactor);
             Debug.DrawLine(rb.position, rb.position + side * gravity * gravityFactor, Color.white);
+            Debug.Log("Side force: " + side * gravity * gravityFactor);
         }
     }
 
