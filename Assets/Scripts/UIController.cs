@@ -26,7 +26,7 @@ public class UIController : MonoBehaviour
         bar.rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, originalSize * value);
     }
 
-    public void showGameOverText(string message) {
+    public void showText(string message) {
         gameOverText.text = message;
         gameOverText.gameObject.SetActive(true);
     }

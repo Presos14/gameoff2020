@@ -11,17 +11,23 @@ public class RocketController : MonoBehaviour
     ConstantForce2D thrust;
     Rigidbody2D rigidBody;
 
-    int mainThrustForce = 3;
-    int sideThrustForce = 2;
+    int mainThrustForce = 5;
+    int sideThrustForce = 1;
 
-    float maxFuel = 250;
+    public float maxFuel = 1000;
     float fuel;
+
+    bool isGrounded;
+    bool takingOff;
+    private RotateAroundPlanet groundPlanetRotateBehavior;
+    private ShakeBehavior shakeBehavior;
     
     // Start is called before the first frame update
     void Start()
     {
         thrust = GetComponent<ConstantForce2D>();
         rigidBody = GetComponent<Rigidbody2D>();
+        shakeBehavior = GetComponent<ShakeBehavior>();
 
         fuel = maxFuel;
     }
@@ -34,6 +40,11 @@ public class RocketController : MonoBehaviour
                 thrust.relativeForce = Vector2.up * mainThrustForce;
                 setParticleEmission(mainThrustEffect.emission, true);
                 decreaseFuel();
+                if (isGrounded) {
+                    // Stop planet rotation while rocket is taking off
+                    groundPlanetRotateBehavior.rotate = false;
+                }
+                shakeBehavior.GenerateImpulse(takingOff ? 1f : 0.4f);
             } else {
                 thrust.relativeForce = Vector2.zero;
                 if (mainThrustEffect.isEmitting) {
@@ -78,6 +89,31 @@ public class RocketController : MonoBehaviour
         }
     }
 
+    void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("surface")) {
+            isGrounded = true;
+            takingOff = true;
+            groundPlanetRotateBehavior = collision.gameObject.GetComponent<RotateAroundPlanet>();
+            groundPlanetRotateBehavior.rotate = true;
+        }
+    }
+
+    void OnCollisionExit2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("surface")) {
+            isGrounded = false;
+        }
+    }
+
+    public void onTakeOffGravityFieldExit() {
+        if (groundPlanetRotateBehavior != null) {
+            groundPlanetRotateBehavior.rotate = true;
+            groundPlanetRotateBehavior = null;
+            takingOff = false;
+        }
+    }
+
     void setParticleEmission(ParticleSystem.EmissionModule emission, bool enabled) {
         emission.enabled = enabled;
     }
@@ -90,5 +126,13 @@ public class RocketController : MonoBehaviour
             fuel = 0;
             WorldController.instance.gameOver("Gone adrift... Press to retry!");
         }
+    }
+
+    public void hit() {
+        shakeBehavior.GenerateImpulse(2f);
+    }
+
+    public bool getIsGrounded() {
+        return isGrounded;
     }
 }

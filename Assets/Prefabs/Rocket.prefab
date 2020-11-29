@@ -14,7 +14,8 @@ GameObject:
   - component: {fileID: 1964883524097222311}
   - component: {fileID: 1964883524097222307}
   - component: {fileID: 1964883524097222304}
-  m_Layer: 0
+  - component: {fileID: 985486766}
+  m_Layer: 10
   m_Name: Rocket
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -103,9 +104,9 @@ Rigidbody2D:
   m_UseAutoMass: 0
   m_Mass: 2
   m_LinearDrag: 0
-  m_AngularDrag: 0
+  m_AngularDrag: 1
   m_GravityScale: 0
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: b70380c983fdb4e4d8cb6d6a83b0fbbb, type: 2}
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
@@ -136,6 +137,7 @@ MonoBehaviour:
   mainThrustEffect: {fileID: 1964883524293107666}
   leftThrustEffect: {fileID: 3508561378078662108}
   rightThrustEffect: {fileID: 6168881094169692225}
+  maxFuel: 1000
 --- !u!60 &1964883524097222304
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -145,7 +147,7 @@ PolygonCollider2D:
   m_GameObject: {fileID: 1964883524097222310}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: b70380c983fdb4e4d8cb6d6a83b0fbbb, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
@@ -175,8 +177,8 @@ PolygonCollider2D:
       - {x: 0.09617647, y: 0.056470588}
       - {x: 0.090294115, y: 0.06529412}
       - {x: 0.083823524, y: 0.07823529}
-      - {x: 0.07970588, y: 0.08470588}
-      - {x: 0.07264706, y: 0.09705882}
+      - {x: 0.12742059, y: 0.010965161}
+      - {x: 0.22012898, y: -0.013552144}
       - {x: 0.075588234, y: 0.097647056}
       - {x: 0.08205882, y: 0.10117646}
       - {x: 0.08735294, y: 0.10470588}
@@ -363,8 +365,8 @@ PolygonCollider2D:
       - {x: -0.083823524, y: 0.09588235}
       - {x: -0.07735294, y: 0.09294117}
       - {x: -0.074411765, y: 0.092352934}
-      - {x: -0.07852941, y: 0.082941175}
-      - {x: -0.08499999, y: 0.07117647}
+      - {x: -0.2216726, y: -0.016825914}
+      - {x: -0.11970134, y: 0.00827986}
       - {x: -0.090294115, y: 0.058823526}
       - {x: -0.09735294, y: 0.046470586}
       - {x: -0.09617647, y: 0.042941175}
@@ -389,6 +391,48 @@ PolygonCollider2D:
       - {x: 0.034411762, y: 0.0011764705}
       - {x: 0.04382353, y: 0.0035294117}
       - {x: 0.046764705, y: 0.0052941176}
+--- !u!114 &985486766
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1964883524097222310}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a0c831d072d304275b026bf6ed89acc8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  impulseDefinition:
+    m_ImpulseChannel: 1
+    m_RawSignal: {fileID: 11400000, guid: 0ee71301e6ef54c369c4a48b919165c7, type: 2}
+    m_AmplitudeGain: 1
+    m_FrequencyGain: 1
+    m_RepeatMode: 0
+    m_Randomize: 1
+    m_TimeEnvelope:
+      m_AttackShape:
+        serializedVersion: 2
+        m_Curve: []
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      m_DecayShape:
+        serializedVersion: 2
+        m_Curve: []
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      m_AttackTime: 0
+      m_SustainTime: 0.2
+      m_DecayTime: 0.7
+      m_ScaleWithImpact: 1
+      m_HoldForever: 0
+    m_ImpactRadius: 100
+    m_DirectionMode: 0
+    m_DissipationMode: 2
+    m_DissipationDistance: 1000
+    m_PropagationSpeed: 343
 --- !u!1001 &1964883524174804206
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -443,6 +487,10 @@ PrefabInstance:
     - target: {fileID: 2848495027622146031, guid: 382699da5d70d4f26896d932193258b7, type: 3}
       propertyPath: m_Name
       value: Right Thrust Effect
+      objectReference: {fileID: 0}
+    - target: {fileID: 2848495027622146031, guid: 382699da5d70d4f26896d932193258b7, type: 3}
+      propertyPath: m_Layer
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 5681554316195757231, guid: 382699da5d70d4f26896d932193258b7, type: 3}
       propertyPath: ShapeModule.m_Rotation.y
@@ -519,6 +567,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Main Thrust Effect
       objectReference: {fileID: 0}
+    - target: {fileID: 8301740045042992502, guid: c2a9a926cabb84f738e7d15adf9007cd, type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c2a9a926cabb84f738e7d15adf9007cd, type: 3}
 --- !u!4 &1964883524293107668 stripped
@@ -585,6 +637,10 @@ PrefabInstance:
     - target: {fileID: 2848495027622146031, guid: 382699da5d70d4f26896d932193258b7, type: 3}
       propertyPath: m_Name
       value: Left Thrust Effect
+      objectReference: {fileID: 0}
+    - target: {fileID: 2848495027622146031, guid: 382699da5d70d4f26896d932193258b7, type: 3}
+      propertyPath: m_Layer
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 5681554316195757231, guid: 382699da5d70d4f26896d932193258b7, type: 3}
       propertyPath: EmissionModule.enabled
