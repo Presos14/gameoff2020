@@ -35,8 +35,7 @@ public class RocketController : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-    {
-        //Debug.Log(transform.position);
+    {        
         WorldController.instance.checkCameraNeedsUpdate(transform.position);
 
         if (Input.GetKey(KeyCode.Space)) {
