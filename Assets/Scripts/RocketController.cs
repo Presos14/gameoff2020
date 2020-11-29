@@ -8,6 +8,8 @@ public class RocketController : MonoBehaviour
     public ParticleSystem mainThrustEffect;
     public ParticleSystem leftThrustEffect;
     public ParticleSystem rightThrustEffect;
+    public GameObject accelerationSound;
+    public GameObject stopAccelerationSound;
     ConstantForce2D thrust;
     Rigidbody2D rigidBody;
 
@@ -22,6 +24,7 @@ public class RocketController : MonoBehaviour
     private RotateAroundPlanet groundPlanetRotateBehavior;
     private ShakeBehavior shakeBehavior;
     
+    private bool thrusted = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -32,9 +35,16 @@ public class RocketController : MonoBehaviour
         fuel = maxFuel;
     }
 
+    void onenable()
+    {
+        accelerationSound.SetActive(false);
+        stopAccelerationSound.SetActive(false);
+    }
+
     // Update is called once per frame
     void Update()
     {
+        thrusted = false;
         if (Input.GetKey(KeyCode.Space)) {
             if (fuel > 0) {
                 thrust.relativeForce = Vector2.up * mainThrustForce;
@@ -45,6 +55,7 @@ public class RocketController : MonoBehaviour
                     groundPlanetRotateBehavior.rotate = false;
                 }
                 shakeBehavior.GenerateImpulse(takingOff ? 1f : 0.4f);
+                thrusted = true;
             } else {
                 thrust.relativeForce = Vector2.zero;
                 if (mainThrustEffect.isEmitting) {
@@ -77,6 +88,7 @@ public class RocketController : MonoBehaviour
                 rigidBody.AddForceAtPosition(transform.up * sideThrustForce, worldForcePosition);
                 setParticleEmission(leftThrustEffect.emission, true);
                 decreaseFuel();
+                thrusted = true;
             }
         }
         if (Input.GetKey(KeyCode.LeftArrow)) {
@@ -85,7 +97,19 @@ public class RocketController : MonoBehaviour
                 rigidBody.AddForceAtPosition(transform.up * sideThrustForce, worldForcePosition);
                 setParticleEmission(rightThrustEffect.emission, true);
                 decreaseFuel();
+                thrusted = true;
             }
+        }
+
+        if(accelerationSound.activeSelf==false && thrusted) 
+        {
+            accelerationSound.SetActive(true);
+            stopAccelerationSound.SetActive(false);
+        }
+        if(accelerationSound.activeSelf==true && stopAccelerationSound.activeSelf == false  && !thrusted) 
+        {
+            accelerationSound.SetActive(false);
+            stopAccelerationSound.SetActive(true);
         }
     }
 
