@@ -5,7 +5,8 @@ using UnityEngine;
 public class MusicController : MonoBehaviour
 {
     public List<AudioClip> MusicClips;
-    private static MusicController instance = null;
+    public AudioClip missionPassed;
+    public static MusicController instance = null;
     private AudioSource audioSource;
     private int i= 0;
     void Awake()
@@ -23,11 +24,17 @@ public class MusicController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!audioSource.isPlaying)
+        if (!audioSource.isPlaying && WorldController.instance.getState() != WorldController.WorldState.LevelComplete)
         {
             i = Mathf.Clamp(-i+1,0,MusicClips.Count);
             audioSource.clip = MusicClips[i];
             audioSource.Play();
         }
+    }
+
+    public void PlayMissionPassed()
+    {
+        audioSource.clip = missionPassed;
+        audioSource.Play();
     }
 }

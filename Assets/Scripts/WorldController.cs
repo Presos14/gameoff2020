@@ -92,6 +92,7 @@ public class WorldController : MonoBehaviour
                 break;
         }
         UIController.instance.showText(message);
+        MusicController.instance.PlayMissionPassed();
         state = WorldState.LevelComplete;
     }
 
