@@ -68,7 +68,7 @@ public class WorldController : MonoBehaviour
                 if (nextScene < N_LEVELS) {
                     SceneManager.LoadScene(nextScene);
                 } else {
-                    // TODO: To title screen
+                    SceneManager.LoadScene(0);
                 }
             }
         }
@@ -108,7 +108,7 @@ public class WorldController : MonoBehaviour
     public void showInitialText() {
         switch (currentLevel) {
             case 1:
-                UIController.instance.showText("To the moon!\nPress to start");
+                UIController.instance.showText("Controls:\n[Space] for take off\nLeft/Right arrows (or A/D keys) to adjust direction...\n\nTo the moon!\nPress to start");
                 break;
             case 2:
                 UIController.instance.showText("To Mars around the Sun!\nPress to start");

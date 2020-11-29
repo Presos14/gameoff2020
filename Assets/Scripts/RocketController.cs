@@ -44,7 +44,11 @@ public class RocketController : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-    {        
+    {
+        if (WorldController.instance.getState() != WorldController.WorldState.Running) {
+            return;
+        }
+
         thrusted = false;
         WorldController.instance.checkCameraNeedsUpdate(transform.position);
 
@@ -88,26 +92,6 @@ public class RocketController : MonoBehaviour
             if (rightThrustEffect.isEmitting) {
                 setParticleEmission(rightThrustEffect.emission, false);
             }
-        }  
-    }
-
-    void FixedUpdate() {
-        if (Input.GetKey(KeyCode.RightArrow)) {
-            if (fuel > 0) {
-                Vector2 worldForcePosition = transform.TransformPoint(new Vector2(-0.5f,0f));
-                rigidBody.AddForceAtPosition(transform.up * sideThrustForce, worldForcePosition);
-                setParticleEmission(leftThrustEffect.emission, true);
-                decreaseFuel(false);
-                thrusted = true;
-            }
-        } else if (Input.GetKey(KeyCode.LeftArrow)) {
-            if (fuel > 0) {
-                Vector2 worldForcePosition = transform.TransformPoint(new Vector2(0.5f,0f));
-                rigidBody.AddForceAtPosition(transform.up * sideThrustForce, worldForcePosition);
-                setParticleEmission(rightThrustEffect.emission, true);
-                decreaseFuel(false);
-                thrusted = true;
-            }
         }
 
         if(accelerationSound.activeSelf==false && thrusted) 
@@ -119,6 +103,24 @@ public class RocketController : MonoBehaviour
         {
             accelerationSound.SetActive(false);
             stopAccelerationSound.SetActive(true);
+        }
+    }
+
+    void FixedUpdate() {
+        if (Input.GetKey(KeyCode.RightArrow)) {
+            if (fuel > 0) {
+                Vector2 worldForcePosition = transform.TransformPoint(new Vector2(-0.5f,0f));
+                rigidBody.AddForceAtPosition(transform.up * sideThrustForce, worldForcePosition);
+                setParticleEmission(leftThrustEffect.emission, true);
+                decreaseFuel(false);
+            }
+        } else if (Input.GetKey(KeyCode.LeftArrow)) {
+            if (fuel > 0) {
+                Vector2 worldForcePosition = transform.TransformPoint(new Vector2(0.5f,0f));
+                rigidBody.AddForceAtPosition(transform.up * sideThrustForce, worldForcePosition);
+                setParticleEmission(rightThrustEffect.emission, true);
+                decreaseFuel(false);
+            }
         }
     }
 
