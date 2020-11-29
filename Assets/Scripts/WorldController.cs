@@ -80,8 +80,17 @@ public class WorldController : MonoBehaviour
         centerCamera.gameObject.SetActive(true);
     }
 
-    public void levelComplete(string message) {
+    public void levelComplete() {
         Time.timeScale = 0;
+        string message = "";
+        switch (currentLevel) {
+            case N_LEVELS:
+                message = "Congratulations!! Monkey successfully delivered.\nThanks for playing!";
+                break;
+            default:
+                message = "Mission accomplished! Press to continue...";
+                break;
+        }
         UIController.instance.showText(message);
         state = WorldState.LevelComplete;
     }
