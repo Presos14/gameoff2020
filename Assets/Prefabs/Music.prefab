@@ -143,3 +143,4 @@ MonoBehaviour:
   MusicClips:
   - {fileID: 8300000, guid: 8ab4f4cfc52134a2cbcd0f8909bb5775, type: 3}
   - {fileID: 8300000, guid: 1fe90c7380b4be54f95ef62239700498, type: 3}
+  missionPassed: {fileID: 8300000, guid: 839967e172c52b84abe903e2a256575e, type: 3}
