@@ -36,7 +36,6 @@ public class GravityField : MonoBehaviour
     }
 
     void FixedUpdate() {
-        if (!orbit) return;
 
         foreach (Collider2D collider in colliders) {
             if (collider.name == "GravityField") {
@@ -54,6 +53,8 @@ public class GravityField : MonoBehaviour
             Vector2 force = (inverseGravity ? -1 : 1) * collider.attachedRigidbody.drag * dir * gravity * gravityFactor;
             collider.attachedRigidbody.AddForce(force);
             Debug.DrawLine(rb.position, rb.position + force, Color.white);
+
+            if (!orbit) continue;
 
             var left = Vector2.SignedAngle(rb.velocity, relativePosition) > 0;
 

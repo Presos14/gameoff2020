@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class LevelCompleteCollider : MonoBehaviour
 {
-    void OnTriggerEnter2D(Collider2D other) {
-        WorldController.instance.levelComplete("Mission 1 accomplished! Press to continue...");
+    void OnCollisionEnter2D(Collision2D other) {
+        WorldController.instance.levelComplete("Mission accomplished! Press to continue...");
     }
 }
