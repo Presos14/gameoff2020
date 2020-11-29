@@ -64,8 +64,8 @@ public class WorldController : MonoBehaviour
         } else if (state == WorldState.LevelComplete) {
             if (Input.anyKeyDown) {
                 Time.timeScale = 1f;
-                int nextScene = SceneManager.GetActiveScene().buildIndex + 1;
-                if (nextScene < N_LEVELS) {
+                int nextScene = currentLevel + 1;
+                if (nextScene <= N_LEVELS) {
                     SceneManager.LoadScene(nextScene);
                 } else {
                     SceneManager.LoadScene(0);
