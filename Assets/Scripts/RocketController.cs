@@ -11,11 +11,12 @@ public class RocketController : MonoBehaviour
     ConstantForce2D thrust;
     Rigidbody2D rigidBody;
 
-    int mainThrustForce = 5;
+    int mainThrustForce = 30;
     int sideThrustForce = 1;
 
     public float maxFuel = 1000;
     float fuel;
+    bool emptyFuel;
 
     bool isGrounded;
     bool takingOff;
@@ -34,12 +35,14 @@ public class RocketController : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-    {
+    {        
+        WorldController.instance.checkCameraNeedsUpdate(transform.position);
+
         if (Input.GetKey(KeyCode.Space)) {
             if (fuel > 0) {
                 thrust.relativeForce = Vector2.up * mainThrustForce;
                 setParticleEmission(mainThrustEffect.emission, true);
-                decreaseFuel();
+                decreaseFuel(true);
                 if (isGrounded) {
                     // Stop planet rotation while rocket is taking off
                     groundPlanetRotateBehavior.rotate = false;
@@ -53,9 +56,16 @@ public class RocketController : MonoBehaviour
             }
         }
         if (Input.GetKeyUp(KeyCode.Space)) {
+            if (emptyFuel) {
+                gameOver();
+            }
             thrust.relativeForce = Vector2.zero;
             if (mainThrustEffect.isEmitting) {
                 setParticleEmission(mainThrustEffect.emission, false);
+            }
+            if (fuel <= 0) {
+                fuel = 0;
+                emptyFuel = true;
             }
         }
         if (Input.GetKeyUp(KeyCode.RightArrow)) {
@@ -76,15 +86,14 @@ public class RocketController : MonoBehaviour
                 Vector2 worldForcePosition = transform.TransformPoint(new Vector2(-0.5f,0f));
                 rigidBody.AddForceAtPosition(transform.up * sideThrustForce, worldForcePosition);
                 setParticleEmission(leftThrustEffect.emission, true);
-                decreaseFuel();
+                decreaseFuel(false);
             }
-        }
-        if (Input.GetKey(KeyCode.LeftArrow)) {
+        } else if (Input.GetKey(KeyCode.LeftArrow)) {
             if (fuel > 0) {
                 Vector2 worldForcePosition = transform.TransformPoint(new Vector2(0.5f,0f));
                 rigidBody.AddForceAtPosition(transform.up * sideThrustForce, worldForcePosition);
                 setParticleEmission(rightThrustEffect.emission, true);
-                decreaseFuel();
+                decreaseFuel(false);
             }
         }
     }
@@ -118,14 +127,13 @@ public class RocketController : MonoBehaviour
         emission.enabled = enabled;
     }
 
-    void decreaseFuel() {
-        fuel -= 50f * Time.deltaTime;
+    void decreaseFuel(bool main) {
+        fuel -= (main ? 100f : 25f) * Time.deltaTime;
         UIController.instance.SetFuelBarValue(fuel / maxFuel);
+    }
 
-        if (fuel < 0) {
-            fuel = 0;
-            WorldController.instance.gameOver("Gone adrift... Press to retry!");
-        }
+    void gameOver() {
+        WorldController.instance.gameOver("Gone adrift... Press to retry!");
     }
 
     public void hit() {
