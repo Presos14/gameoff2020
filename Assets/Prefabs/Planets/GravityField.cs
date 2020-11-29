@@ -47,7 +47,6 @@ public class GravityField : MonoBehaviour
 
             Rigidbody2D rb = collider.GetComponent<Rigidbody2D>();
             Vector2 relativePosition = ((Vector2) transform.position) - rb.position;
-            Debug.Log("RelativePosition: " + relativePosition);
             float distance = relativePosition.magnitude;
     
             float gravityFactor = decreaseWithDistance ? (1 - (distance / maxDistance)) : 1;
@@ -57,8 +56,7 @@ public class GravityField : MonoBehaviour
             Vector2 force = (inverseGravity ? -1 : 1) * collider.attachedRigidbody.drag * dir * gravity * gravityFactor;
             collider.attachedRigidbody.AddForce(force);
             Debug.DrawLine(rb.position, rb.position + force, Color.white);
-            Debug.Log(force);
-
+            
             if (!orbit) continue;
 
             var left = Vector2.SignedAngle(rb.velocity, relativePosition) > 0;

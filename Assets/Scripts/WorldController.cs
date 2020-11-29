@@ -37,7 +37,8 @@ public class WorldController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        currentLevel = SceneManager.GetActiveScene().buildIndex + 1;
+        currentLevel = SceneManager.GetActiveScene().buildIndex;
+        Debug.Log("Current level: " + currentLevel);
         showInitialText();
         Time.timeScale = 0;
     }
@@ -94,16 +95,26 @@ public class WorldController : MonoBehaviour
                     additionalCameras[0].gameObject.SetActive(true);
                 }
                 break;
+            case 3:
+                if (currentCamFocus == 0 && position.x > 20) {
+                    currentCamFocus = 1;
+                    rocketCamera.gameObject.SetActive(false);
+                    additionalCameras[0].gameObject.SetActive(true);
+                }
+                break;
         }
     }
 
     public void showInitialText() {
         switch (currentLevel) {
             case 1:
-                UIController.instance.showText("To the moon!\nPress to start.");
+                UIController.instance.showText("To the moon!\nPress to start");
                 break;
             case 2:
-                UIController.instance.showText("To Mars around the Sun!\nPress to start.");
+                UIController.instance.showText("To Mars around the Sun!\nPress to start");
+                break;
+            case 3:
+                UIController.instance.showText("Things are getting weird... Get to the blue planet!\nPress to start");
                 break;
         }
     }
