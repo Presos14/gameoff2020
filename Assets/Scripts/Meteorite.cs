@@ -7,6 +7,8 @@ public class Meteorite : MonoBehaviour
     Rigidbody2D rigidbody2d;
 
     private int rotateDir;
+    private float timer;
+    private float timerCap = 15f;
 
     // Start is called before the first frame update
     void Awake()
@@ -15,14 +17,19 @@ public class Meteorite : MonoBehaviour
         rotateDir = Random.Range(0,2) == 0 ? 1 : -1;
     }
 
+    public void OnEnable()
+    {
+        timer = timerCap;
+    }
     // Update is called once per frame
     void Update()
     {
-        if(transform.position.magnitude > 500.0f)
+        if(timer <= 0f)
         {
-            Destroy(gameObject);
+            gameObject.SetActive(false);
         }
         transform.Rotate(rotateDir * Vector3.forward * (50 * Time.deltaTime));
+        timer -= Time.deltaTime;
     }
     public void Launch(Vector2 direction, float force)
     {
