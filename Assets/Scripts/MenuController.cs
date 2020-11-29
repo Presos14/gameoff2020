@@ -52,7 +52,7 @@ public class MenuController : MonoBehaviour
     {
         CreditsButton.onClick.RemoveAllListeners();
         CreditsButton.onClick.AddListener(HideCredits);
-        CreditsButtonText.text = "Back";
+        CreditsButtonText.text = "Return";
         PlayButton.gameObject.SetActive(false);
         ExitButton.gameObject.SetActive(false);
         CreditsPanel.gameObject.SetActive(true);
