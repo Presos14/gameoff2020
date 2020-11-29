@@ -21,7 +21,6 @@ public class GravityField : MonoBehaviour
         maxDistance = planetGravityCollider.radius;
     }
     private void OnTriggerEnter2D(Collider2D other) {
-        other.attachedRigidbody.drag = linearDrag;
         if (!colliders.Contains(other)) { colliders.Add(other); }
     }
  
@@ -41,6 +40,8 @@ public class GravityField : MonoBehaviour
             if (collider.name == "GravityField") {
                 continue;
             }
+
+            collider.attachedRigidbody.drag = linearDrag;
 
             Rigidbody2D rb = collider.GetComponent<Rigidbody2D>();
             Vector2 relativePosition = ((Vector2) transform.position) - rb.position;
@@ -64,7 +65,7 @@ public class GravityField : MonoBehaviour
 
             collider.attachedRigidbody.AddForce(side * gravity * gravityFactor);
             Debug.DrawLine(rb.position, rb.position + side * gravity * gravityFactor, Color.white);
-            Debug.Log("Side force: " + side * gravity * gravityFactor);
+            //Debug.Log("Side force: " + side * gravity * gravityFactor);
         }
     }
 
