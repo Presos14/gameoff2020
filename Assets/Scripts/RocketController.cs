@@ -10,6 +10,8 @@ public class RocketController : MonoBehaviour
     public ParticleSystem rightThrustEffect;
     public GameObject accelerationSound;
     public GameObject stopAccelerationSound;
+    public GameObject goalIndicator;
+    public GameObject center;
     ConstantForce2D thrust;
     Rigidbody2D rigidBody;
     private bool thrusted = false;
@@ -45,9 +47,12 @@ public class RocketController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (WorldController.instance.getState() != WorldController.WorldState.Running) {
+        if (WorldController.instance.getState() != WorldController.WorldState.Running && LevelCompleteCollider.instance != null) 
+        {
+            goalIndicator.SetActive(false);
             return;
-        }
+        }else
+            goalIndicator.SetActive(true);
 
         thrusted = false;
         WorldController.instance.checkCameraNeedsUpdate(transform.position);
@@ -122,6 +127,17 @@ public class RocketController : MonoBehaviour
                 decreaseFuel(false);
             }
         }
+        SetGoalIndicatorPosition();
+    }
+
+    public void SetGoalIndicatorPosition()
+    {
+        Vector2 direction = LevelCompleteCollider.instance.gameObject.transform.position - center.transform.position;
+        direction.Normalize();
+        Vector2 point = (Vector2)center.transform.position + direction * 1f;
+        Debug.Log("point:" + point);
+        goalIndicator.transform.position = point;
+        goalIndicator.transform.rotation = Quaternion.LookRotation(Vector3.forward, direction);
     }
 
     void OnCollisionEnter2D(Collision2D collision)
