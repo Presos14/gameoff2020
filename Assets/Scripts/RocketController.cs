@@ -83,12 +83,12 @@ public class RocketController : MonoBehaviour
                 emptyFuel = true;
             }
         }
-        if (Input.GetKeyUp(KeyCode.RightArrow)) {
+        if (Input.GetKeyUp(KeyCode.RightArrow) || Input.GetKeyUp(KeyCode.D)) {
             if (leftThrustEffect.isEmitting) {
                 setParticleEmission(leftThrustEffect.emission, false);
             }
         }
-        if (Input.GetKeyUp(KeyCode.LeftArrow)) {
+        if (Input.GetKeyUp(KeyCode.LeftArrow) || Input.GetKeyUp(KeyCode.A)) {
             if (rightThrustEffect.isEmitting) {
                 setParticleEmission(rightThrustEffect.emission, false);
             }
@@ -107,14 +107,14 @@ public class RocketController : MonoBehaviour
     }
 
     void FixedUpdate() {
-        if (Input.GetKey(KeyCode.RightArrow)) {
+        if (Input.GetKey(KeyCode.RightArrow) || Input.GetKeyUp(KeyCode.D)) {
             if (fuel > 0) {
                 Vector2 worldForcePosition = transform.TransformPoint(new Vector2(-0.5f,0f));
                 rigidBody.AddForceAtPosition(transform.up * sideThrustForce, worldForcePosition);
                 setParticleEmission(leftThrustEffect.emission, true);
                 decreaseFuel(false);
             }
-        } else if (Input.GetKey(KeyCode.LeftArrow)) {
+        } else if (Input.GetKey(KeyCode.LeftArrow) || Input.GetKeyUp(KeyCode.A)) {
             if (fuel > 0) {
                 Vector2 worldForcePosition = transform.TransformPoint(new Vector2(0.5f,0f));
                 rigidBody.AddForceAtPosition(transform.up * sideThrustForce, worldForcePosition);
