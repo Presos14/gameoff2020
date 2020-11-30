@@ -76,6 +76,7 @@ public class WorldController : MonoBehaviour
 
     public void gameOver(string message) {
         UIController.instance.showText(message);
+        MusicController.instance.PlayMissionFailed();
         state = WorldState.GameOver;
         centerCamera.gameObject.SetActive(true);
     }
