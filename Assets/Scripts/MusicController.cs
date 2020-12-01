@@ -6,6 +6,7 @@ public class MusicController : MonoBehaviour
 {
     public List<AudioClip> MusicClips;
     public AudioClip missionPassed;
+    public AudioClip missionFailed;
     public static MusicController instance = null;
     private AudioSource audioSource;
     private int i= 0;
@@ -36,5 +37,15 @@ public class MusicController : MonoBehaviour
     {
         audioSource.clip = missionPassed;
         audioSource.Play();
+    }
+
+    public void PlayMissionFailed()
+    {
+        audioSource.clip = missionFailed;
+        audioSource.Play();
+    }
+
+    public void StopAudio() {
+        audioSource.Stop();
     }
 }
