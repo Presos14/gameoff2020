@@ -16,7 +16,10 @@ public class MusicController : MonoBehaviour
         audioSource.clip = MusicClips[i];
         audioSource.Play();
         if(instance!=null && instance != this)
+        {
             Destroy(gameObject);
+            return;
+        }
         
         instance = this;
         DontDestroyOnLoad(this.gameObject);
