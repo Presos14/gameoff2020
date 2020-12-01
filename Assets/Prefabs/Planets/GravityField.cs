@@ -37,11 +37,13 @@ public class GravityField : MonoBehaviour
     void FixedUpdate() {
 
         foreach (Collider2D collider in colliders) {
-            if (collider.name == "GravityField") {
+            if (collider.name == "GravityField" 
+                || collider.name == "Satellite1" 
+                || collider.name == "Satellite2") {
                 continue;
             }
 
-            Debug.Log(collider.name);
+            //Debug.Log(collider.name);
 
             collider.attachedRigidbody.drag = linearDrag;
 
