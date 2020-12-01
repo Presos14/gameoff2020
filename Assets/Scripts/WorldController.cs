@@ -6,7 +6,7 @@ using Cinemachine;
 
 public class WorldController : MonoBehaviour
 {
-    const int N_LEVELS = 3;
+    const int N_LEVELS = 4;
     public static WorldController instance { get; private set; }
 
     public CinemachineVirtualCamera worldCamera;
@@ -129,6 +129,9 @@ public class WorldController : MonoBehaviour
                 break;
             case 3:
                 UIController.instance.showText("Things are getting weird... Get to the blue planet!\nPro tip: do not think much, go straight to the goal!\nPress to start");
+                break;
+            case 4:
+                UIController.instance.showText("Deliver the monkey... Towards the black hole!\nPress to start");
                 break;
         }
     }

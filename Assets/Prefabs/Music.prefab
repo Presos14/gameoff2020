@@ -144,4 +144,4 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 3ca5979c9fb1f4731bb61e872d20f261, type: 3}
   - {fileID: 8300000, guid: 3ca5979c9fb1f4731bb61e872d20f261, type: 3}
   missionPassed: {fileID: 8300000, guid: 839967e172c52b84abe903e2a256575e, type: 3}
-  missionFailed: {fileID: 8300000, guid: 1d2bd68628ae446b5b712d9c23ca7907, type: 3}
+  missionFailed: {fileID: 8300000, guid: 56795bb3fc4624140aee3f9ab814f89a, type: 3}
