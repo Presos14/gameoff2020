@@ -17,7 +17,7 @@ public class PlanetWithProjectile : MonoBehaviour
     {
         rigidbody2d = GetComponent<Rigidbody2D>();
         circleCollider2D = GetComponent<CircleCollider2D>();
-        InvokeRepeating("launchMeteorite", 2.0f, meteoriteRate);
+        InvokeRepeating("launchMeteorite", 1.0f, meteoriteRate);
     }
 
     // Update is called once per frame

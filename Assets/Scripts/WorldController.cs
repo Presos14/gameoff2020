@@ -6,7 +6,7 @@ using Cinemachine;
 
 public class WorldController : MonoBehaviour
 {
-    const int N_LEVELS = 3;
+    const int N_LEVELS = 4;
     public static WorldController instance { get; private set; }
 
     public CinemachineVirtualCamera worldCamera;
@@ -60,6 +60,7 @@ public class WorldController : MonoBehaviour
         } else if (state == WorldState.GameOver) {
             if (Input.anyKeyDown) {
                 MusicController.instance.StopAudio();
+                Debug.Log(SceneManager.GetActiveScene().buildIndex);
                 SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
             }
         } else if (state == WorldState.LevelComplete) {
@@ -127,7 +128,10 @@ public class WorldController : MonoBehaviour
                 UIController.instance.showText("To Mars around the Sun!\nPress to start");
                 break;
             case 3:
-                UIController.instance.showText("Things are getting weird... Get to the blue planet!\nPress to start");
+                UIController.instance.showText("Things are getting weird... Get to the blue planet!\nPro tip: do not think much, go straight to the goal!\nPress to start");
+                break;
+            case 4:
+                UIController.instance.showText("Deliver the monkey... Towards the black hole!\nPress to start");
                 break;
         }
     }

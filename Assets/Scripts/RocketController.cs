@@ -135,7 +135,7 @@ public class RocketController : MonoBehaviour
         Vector2 direction = LevelCompleteCollider.instance.gameObject.transform.position - center.transform.position;
         direction.Normalize();
         Vector2 point = (Vector2)center.transform.position + direction * 1f;
-        Debug.Log("point:" + point);
+        //Debug.Log("point:" + point);
         goalIndicator.transform.position = point;
         goalIndicator.transform.rotation = Quaternion.LookRotation(Vector3.forward, direction);
     }
