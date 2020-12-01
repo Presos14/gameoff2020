@@ -2307,7 +2307,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 8155cadd6c4f24d74838ce279eaa5f4e, type: 3}
+  m_Sprite: {fileID: 21300000, guid: e5f1222ceea314867ba7322e0067a49f, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -2973,15 +2973,15 @@ PrefabInstance:
     - target: {fileID: 5064519284824443916, guid: a2e285c2d3862b648a09ede55eb9f466, type: 3}
       propertyPath: MusicClips.Array.data[0]
       value: 
-      objectReference: {fileID: 8300000, guid: da904b5e4255b48bfa3502be621b0f02, type: 3}
+      objectReference: {fileID: 8300000, guid: 3ca5979c9fb1f4731bb61e872d20f261, type: 3}
     - target: {fileID: 5064519284824443916, guid: a2e285c2d3862b648a09ede55eb9f466, type: 3}
       propertyPath: missionFailed
       value: 
-      objectReference: {fileID: 8300000, guid: 51dad0207bbc94c718639885ebd199c8, type: 3}
+      objectReference: {fileID: 8300000, guid: 1d2bd68628ae446b5b712d9c23ca7907, type: 3}
     - target: {fileID: 5064519284824443916, guid: a2e285c2d3862b648a09ede55eb9f466, type: 3}
       propertyPath: MusicClips.Array.data[1]
       value: 
-      objectReference: {fileID: 8300000, guid: da904b5e4255b48bfa3502be621b0f02, type: 3}
+      objectReference: {fileID: 8300000, guid: 3ca5979c9fb1f4731bb61e872d20f261, type: 3}
     - target: {fileID: 5064519284824443917, guid: a2e285c2d3862b648a09ede55eb9f466, type: 3}
       propertyPath: m_Name
       value: Music

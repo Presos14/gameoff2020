@@ -44,4 +44,8 @@ public class MusicController : MonoBehaviour
         audioSource.clip = missionFailed;
         audioSource.Play();
     }
+
+    public void StopAudio() {
+        audioSource.Stop();
+    }
 }

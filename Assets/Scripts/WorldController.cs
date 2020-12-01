@@ -59,10 +59,12 @@ public class WorldController : MonoBehaviour
             }
         } else if (state == WorldState.GameOver) {
             if (Input.anyKeyDown) {
+                MusicController.instance.StopAudio();
                 SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
             }
         } else if (state == WorldState.LevelComplete) {
             if (Input.anyKeyDown) {
+                MusicController.instance.StopAudio();
                 Time.timeScale = 1f;
                 int nextScene = currentLevel + 1;
                 if (nextScene <= N_LEVELS) {
